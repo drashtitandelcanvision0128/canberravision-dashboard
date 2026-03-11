@@ -60,8 +60,8 @@ export default function PeopleSettingsPage() {
       <div className="flex flex-col gap-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900">People Detection Settings</h1>
-          <p className="text-zinc-600">Configure counting zones and thresholds</p>
+          {/* <h1 className="text-2xl font-bold text-zinc-900">People Detection Settings</h1>
+          <p className="text-zinc-600">Configure counting zones and thresholds</p> */}
         </div>
 
         {/* Tabs */}

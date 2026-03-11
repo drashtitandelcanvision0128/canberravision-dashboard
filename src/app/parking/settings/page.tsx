@@ -177,8 +177,8 @@ export default function ParkingSettingsPage() {
         <div className="p-6">
           {/* Header */}
           <div className="mb-6">
-            <h1 className="text-2xl font-bold text-zinc-900">Parking Detection Settings</h1>
-            <p className="text-zinc-600 mt-1">Configure parking lots, zones, cameras, and detection rules</p>
+            {/* <h1 className="text-2xl font-bold text-zinc-900">Parking Detection Settings</h1>
+            <p className="text-zinc-600 mt-1">Configure parking lots, zones, cameras, and detection rules</p> */}
           </div>
 
           {/* Tabs */}
@@ -395,7 +395,7 @@ export default function ParkingSettingsPage() {
                     <h3 className="text-lg font-medium text-zinc-900">Capture Interval</h3>
                     <p className="text-zinc-500 text-sm mt-1">How often to capture and analyze images</p>
                   </div>
-                  <span className="text-foreground font-medium">Every 30 seconds</span>
+                  <span className="text-zinc-900 font-medium">Every 30 seconds</span>
                 </div>
 
                 {/* Business Hours Only */}

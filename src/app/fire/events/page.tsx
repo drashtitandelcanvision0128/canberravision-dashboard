@@ -43,8 +43,8 @@ export default function FireEventsAlertsPage() {
       <div className="flex flex-col gap-6">
         {/* Header */}
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900">Events & Alerts</h1>
-          <p className="text-zinc-600">Fire and smoke detection monitoring</p>
+          {/* <h1 className="text-2xl font-bold text-zinc-900">Events & Alerts</h1>
+          <p className="text-zinc-600">Fire and smoke detection monitoring</p> */}
         </div>
 
         {/* Alert Cards */}

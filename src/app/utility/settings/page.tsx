@@ -10,60 +10,13 @@ import {
   Droplet,
   Thermometer,
   Gauge,
-  Search,
-  Bell,
   Clock,
   AlertTriangle
 } from 'lucide-react';
 
 export default function UtilitySettingsPage() {
   const [activeTab, setActiveTab] = useState('types');
-  const [searchQuery, setSearchQuery] = useState('');
-
-  const tabs = [
-    { id: 'meters', label: 'Meters' },
-    { id: 'types', label: 'Meter Types' },
-    { id: 'schedules', label: 'Schedules' },
-    { id: 'alerts', label: 'Alerts' }
-  ];
-
-  const configuredMeters = [
-    {
-      id: 1,
-      name: 'Electric Meter #1',
-      type: 'Electric',
-      location: 'Utility Room A',
-      frequency: 'Every 5 min',
-      status: 'active',
-      icon: Zap,
-      iconColor: 'text-blue-500',
-      iconBg: 'bg-blue-100'
-    },
-    {
-      id: 2,
-      name: 'Gas Gauge #3',
-      type: 'Gas',
-      location: 'Boiler Room',
-      frequency: 'Every 10 min',
-      status: 'active',
-      icon: Flame,
-      iconColor: 'text-orange-500',
-      iconBg: 'bg-orange-100'
-    },
-    {
-      id: 3,
-      name: 'Water Meter #2',
-      type: 'Water',
-      location: 'Basement',
-      frequency: 'Every 15 min',
-      status: 'active',
-      icon: Droplet,
-      iconColor: 'text-cyan-500',
-      iconBg: 'bg-cyan-100'
-    }
-  ];
-
-  const supportedMeterTypes = [
+  const [supportedMeterTypes, setSupportedMeterTypes] = useState([
     {
       id: 1,
       name: 'Electric Meter',
@@ -109,11 +62,63 @@ export default function UtilitySettingsPage() {
       iconColor: 'text-purple-500',
       iconBg: 'bg-purple-100'
     }
+  ]);
+  
+  const [peakHoursEnabled, setPeakHoursEnabled] = useState(true);
+  const [criticalThresholdsEnabled, setCriticalThresholdsEnabled] = useState(true);
+  const [warningThresholdsEnabled, setWarningThresholdsEnabled] = useState(true);
+  const [anomalyDetectionEnabled, setAnomalyDetectionEnabled] = useState(true);
+
+  const tabs = [
+    { id: 'meters', label: 'Meters' },
+    { id: 'types', label: 'Meter Types' },
+    { id: 'schedules', label: 'Schedules' },
+    { id: 'alerts', label: 'Alerts' }
   ];
 
+  const configuredMeters = [
+    {
+      id: 1,
+      name: 'Electric Meter #1',
+      type: 'Electric',
+      location: 'Utility Room A',
+      frequency: 'Every 5 min',
+      status: 'active',
+      icon: Zap,
+      iconColor: 'text-blue-500',
+      iconBg: 'bg-blue-100'
+    },
+    {
+      id: 2,
+      name: 'Gas Gauge #3',
+      type: 'Gas',
+      location: 'Boiler Room',
+      frequency: 'Every 10 min',
+      status: 'active',
+      icon: Flame,
+      iconColor: 'text-orange-500',
+      iconBg: 'bg-orange-100'
+    },
+    {
+      id: 3,
+      name: 'Water Meter #2',
+      type: 'Water',
+      location: 'Basement',
+      frequency: 'Every 15 min',
+      status: 'active',
+      icon: Droplet,
+      iconColor: 'text-cyan-500',
+      iconBg: 'bg-cyan-100'
+    }
+  ];
+
+
   const toggleMeterType = (id: number) => {
-    // Toggle functionality for meter types
-    console.log('Toggle meter type:', id);
+    setSupportedMeterTypes(prev => 
+      prev.map(meter => 
+        meter.id === id ? { ...meter, isActive: !meter.isActive } : meter
+      )
+    );
   };
 
   return (
@@ -124,26 +129,6 @@ export default function UtilitySettingsPage() {
           <div>
             {/* <h1 className="text-2xl font-bold text-zinc-900">Utility Settings</h1>
             <p className="text-zinc-600 mt-1">Configure meters, gauges and reading parameters</p> */}
-          </div>
-          
-          <div className="flex items-center gap-3">
-            {/* Search Bar */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400" />
-              <input
-                type="search"
-                placeholder="Search meters..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-64 pl-10 pr-4 py-2 border border-zinc-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-            </div>
-            
-            {/* Notification Bell */}
-            <button className="relative p-2.5 text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
-            </button>
           </div>
         </div>
 
@@ -307,14 +292,14 @@ export default function UtilitySettingsPage() {
                   <p className="text-xs text-zinc-500">More frequent readings during peak hours</p>
                 </div>
                 <button
-                  onClick={() => console.log('Toggle peak hours')}
+                  onClick={() => setPeakHoursEnabled(!peakHoursEnabled)}
                   className={`relative inline-block w-10 h-6 transition duration-200 ease-in-out rounded-full ${
-                    true ? 'bg-green-600' : 'bg-zinc-200'
+                    peakHoursEnabled ? 'bg-green-600' : 'bg-zinc-200'
                   }`}
                 >
                   <span
                     className={`absolute left-1 top-1 inline-block w-4 h-4 transition transform duration-200 ease-in-out bg-white rounded-full shadow ${
-                      true ? 'translate-x-4' : 'translate-x-0'
+                      peakHoursEnabled ? 'translate-x-4' : 'translate-x-0'
                     }`}
                   />
                 </button>
@@ -338,14 +323,14 @@ export default function UtilitySettingsPage() {
                   <p className="text-xs text-zinc-500">Alert when readings exceed critical limits</p>
                 </div>
                 <button
-                  onClick={() => console.log('Toggle critical thresholds')}
+                  onClick={() => setCriticalThresholdsEnabled(!criticalThresholdsEnabled)}
                   className={`relative inline-block w-10 h-6 transition duration-200 ease-in-out rounded-full ${
-                    true ? 'bg-green-600' : 'bg-zinc-200'
+                    criticalThresholdsEnabled ? 'bg-green-600' : 'bg-zinc-200'
                   }`}
                 >
                   <span
                     className={`absolute left-1 top-1 inline-block w-4 h-4 transition transform duration-200 ease-in-out bg-white rounded-full shadow ${
-                      true ? 'translate-x-4' : 'translate-x-0'
+                      criticalThresholdsEnabled ? 'translate-x-4' : 'translate-x-0'
                     }`}
                   />
                 </button>
@@ -360,14 +345,14 @@ export default function UtilitySettingsPage() {
                   <p className="text-xs text-zinc-500">Alert when readings approach warning limits</p>
                 </div>
                 <button
-                  onClick={() => console.log('Toggle warning thresholds')}
+                  onClick={() => setWarningThresholdsEnabled(!warningThresholdsEnabled)}
                   className={`relative inline-block w-10 h-6 transition duration-200 ease-in-out rounded-full ${
-                    true ? 'bg-green-600' : 'bg-zinc-200'
+                    warningThresholdsEnabled ? 'bg-green-600' : 'bg-zinc-200'
                   }`}
                 >
                   <span
                     className={`absolute left-1 top-1 inline-block w-4 h-4 transition transform duration-200 ease-in-out bg-white rounded-full shadow ${
-                      true ? 'translate-x-4' : 'translate-x-0'
+                      warningThresholdsEnabled ? 'translate-x-4' : 'translate-x-0'
                     }`}
                   />
                 </button>
@@ -382,14 +367,14 @@ export default function UtilitySettingsPage() {
                   <p className="text-xs text-zinc-500">Detect unusual patterns in reading data</p>
                 </div>
                 <button
-                  onClick={() => console.log('Toggle anomaly detection')}
+                  onClick={() => setAnomalyDetectionEnabled(!anomalyDetectionEnabled)}
                   className={`relative inline-block w-10 h-6 transition duration-200 ease-in-out rounded-full ${
-                    true ? 'bg-green-600' : 'bg-zinc-200'
+                    anomalyDetectionEnabled ? 'bg-green-600' : 'bg-zinc-200'
                   }`}
                 >
                   <span
                     className={`absolute left-1 top-1 inline-block w-4 h-4 transition transform duration-200 ease-in-out bg-white rounded-full shadow ${
-                      true ? 'translate-x-4' : 'translate-x-0'
+                      anomalyDetectionEnabled ? 'translate-x-4' : 'translate-x-0'
                     }`}
                   />
                 </button>

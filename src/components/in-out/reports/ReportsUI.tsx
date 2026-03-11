@@ -162,32 +162,22 @@ export function QuickReportForm({ onGenerate }: { onGenerate: () => void }) {
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:flex-wrap xl:flex-nowrap">
           <div className="relative w-full sm:w-56">
             <input
+              type="date"
               value={fromDate}
               onChange={(e) => setFromDate(e.target.value)}
-              placeholder="dd-mm-yyyy"
-              className="h-10 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 pr-10 text-sm text-zinc-700 outline-none hover:bg-zinc-100 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+              className="h-10 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 text-sm text-zinc-700 outline-none hover:bg-zinc-100 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
             />
-            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3M5 11h14M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
           </div>
 
           <div className="hidden text-sm text-zinc-500 sm:block">to</div>
 
           <div className="relative w-full sm:w-56">
             <input
+              type="date"
               value={toDate}
               onChange={(e) => setToDate(e.target.value)}
-              placeholder="dd-mm-yyyy"
-              className="h-10 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 pr-10 text-sm text-zinc-700 outline-none hover:bg-zinc-100 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+              className="h-10 w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 text-sm text-zinc-700 outline-none hover:bg-zinc-100 focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
             />
-            <div className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400">
-              <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3M5 11h14M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-              </svg>
-            </div>
           </div>
         </div>
 

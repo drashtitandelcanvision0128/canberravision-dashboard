@@ -102,7 +102,7 @@ function LoginPageInner() {
           <button
             type="submit"
             disabled={loading}
-            className="h-10 rounded-md bg-zinc-900 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-60"
+            className="h-10 rounded-md bg-zinc-900 text-sm font-medium text-black hover:bg-zinc-800 disabled:opacity-60 dark:bg-white dark:text-black dark:hover:bg-zinc-100"
           >
             {loading ? "Signing in..." : "Sign in"}
           </button>
@@ -129,7 +129,7 @@ function LoginPageInner() {
           </div>
 
           <div className="text-xs text-zinc-500">
-            API: {process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001"}
+            {/* API: {process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001"} */}
           </div>
         </form>
       </div>

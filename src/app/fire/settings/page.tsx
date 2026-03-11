@@ -7,8 +7,8 @@ export default function FireSettingsPage() {
     <AppShell>
       <div className="flex flex-col gap-6">
         <div>
-          <h1 className="text-2xl font-bold text-zinc-900">Fire / Smoke Settings</h1>
-          <p className="text-zinc-600">Configure fire and smoke detection system settings</p>
+          {/* <h1 className="text-2xl font-bold text-zinc-900">Fire / Smoke Settings</h1>
+          <p className="text-zinc-600">Configure fire and smoke detection system settings</p> */}
         </div>
 
         <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

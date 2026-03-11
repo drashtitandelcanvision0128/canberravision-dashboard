@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React from 'react';
 import { AppShell } from '@/components/AppShell';
 import { 
   AlertTriangle, 
@@ -11,13 +11,10 @@ import {
   Flame,
   Zap,
   Droplet,
-  Gauge,
-  Search,
-  Bell
+  Gauge
 } from 'lucide-react';
 
 export default function UtilityEventsAlertsPage() {
-  const [searchQuery, setSearchQuery] = useState('');
 
   const summaryData = [
     { 
@@ -115,26 +112,6 @@ export default function UtilityEventsAlertsPage() {
           <div>
             {/* <h1 className="text-2xl font-bold text-zinc-900">Events & Alerts</h1>
             <p className="text-zinc-600 mt-1">Utility monitoring notifications</p> */}
-          </div>
-          
-          <div className="flex items-center gap-3">
-            {/* Search Bar */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400" />
-              <input
-                type="search"
-                placeholder="Search events..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-64 pl-10 pr-4 py-2 border border-zinc-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-            </div>
-            
-            {/* Notification Bell */}
-            <button className="relative p-2.5 text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
-            </button>
           </div>
         </div>
 

@@ -450,7 +450,7 @@ export default function EventsPage() {
                   <option value="exit">Exits Only</option>
                   <option value="unauthorized">Unauthorized</option>
                 </select>
-                <button className="text-sm text-green-600 hover:text-green-700">View All</button>
+                {/* <button className="text-sm text-green-600 hover:text-green-700">View All</button> */}
               </div>
             </div>
             

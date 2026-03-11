@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { AppShell } from '@/components/AppShell';
 import { 
   FileText, 
@@ -19,6 +19,65 @@ import {
 export default function UtilityReportsPage() {
   const [selectedDateRange, setSelectedDateRange] = useState('Last 7 Days');
   const [selectedMeter, setSelectedMeter] = useState('All Meters');
+  const [showDateInput, setShowDateInput] = useState(false);
+  const [showMeterDropdown, setShowMeterDropdown] = useState(false);
+  const [tempStartDate, setTempStartDate] = useState('');
+  const [tempEndDate, setTempEndDate] = useState('');
+
+  const dateRef = useRef<HTMLDivElement | null>(null);
+  const meterRef = useRef<HTMLDivElement | null>(null);
+
+  const meters = [
+    'All Meters',
+    'Electric Meter A',
+    'Electric Meter B',
+    'Water Meter Main',
+    'Gas Meter',
+    'Temperature Sensor 1',
+    'Pressure Sensor 1',
+  ];
+
+  const handleDateApply = () => {
+    if (tempStartDate && tempEndDate) {
+      setSelectedDateRange(`${tempStartDate} to ${tempEndDate}`);
+    }
+    setShowDateInput(false);
+    setTempStartDate('');
+    setTempEndDate('');
+  };
+
+  const handleDateCancel = () => {
+    setShowDateInput(false);
+    setTempStartDate('');
+    setTempEndDate('');
+  };
+
+  useEffect(() => {
+    if (!showDateInput && !showMeterDropdown) return;
+
+    const handlePointerDown = (e: PointerEvent) => {
+      if (showDateInput && dateRef.current && e.target instanceof Node && !dateRef.current.contains(e.target)) {
+        setShowDateInput(false);
+      }
+      if (showMeterDropdown && meterRef.current && e.target instanceof Node && !meterRef.current.contains(e.target)) {
+        setShowMeterDropdown(false);
+      }
+    };
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setShowDateInput(false);
+        setShowMeterDropdown(false);
+      }
+    };
+
+    window.addEventListener("pointerdown", handlePointerDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("pointerdown", handlePointerDown);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [showDateInput, showMeterDropdown]);
 
   const reportCards = [
     {
@@ -94,22 +153,6 @@ export default function UtilityReportsPage() {
           </div>
           
           <div className="flex items-center gap-3">
-            {/* Search Bar */}
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-zinc-400" />
-              <input
-                type="search"
-                placeholder="Search reports..."
-                className="w-64 pl-10 pr-4 py-2 border border-zinc-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent"
-              />
-            </div>
-            
-            {/* Notification Icon */}
-            <button className="relative p-2 text-zinc-600 hover:bg-zinc-100 rounded-lg transition-colors">
-              <Bell className="w-5 h-5" />
-              <span className="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border-2 border-white" />
-            </button>
-            
             {/* Export Report Button */}
             <button className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors">
               <Download className="w-4 h-4" />
@@ -121,18 +164,91 @@ export default function UtilityReportsPage() {
         {/* Filter Buttons */}
         <div className="flex items-center gap-3 mb-6">
           {/* Date Range Button */}
-          <button className="flex items-center gap-2 px-4 py-2 border border-zinc-300 rounded-lg hover:bg-zinc-50 transition-colors">
-            <Calendar className="w-4 h-4 text-zinc-600" />
-            <span className="text-sm text-zinc-700">Date Range</span>
-            <span className="text-xs text-zinc-500 bg-zinc-100 px-2 py-1 rounded">{selectedDateRange}</span>
-          </button>
-          
+          <div className="relative" ref={dateRef}>
+            <button
+              onClick={() => setShowDateInput(!showDateInput)}
+              className="flex items-center gap-2 px-4 py-2 border border-zinc-300 rounded-lg hover:bg-zinc-50 transition-colors"
+            >
+              <Calendar className="w-4 h-4 text-zinc-600" />
+              <span className="text-sm text-zinc-700">Date Range</span>
+              <span className="text-xs text-zinc-500 bg-zinc-100 px-2 py-1 rounded">{selectedDateRange}</span>
+            </button>
+
+            {showDateInput && (
+              <div className="absolute top-full left-0 mt-2 z-50 w-96 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-2xl ring-1 ring-black/5">
+                <div className="p-4 border-b border-zinc-200">
+                  <div className="text-sm font-semibold text-zinc-900">Select Date Range</div>
+                </div>
+                <div className="p-4 space-y-3">
+                  <div>
+                    <label className="block text-xs font-medium text-zinc-700 mb-1">Start Date</label>
+                    <input
+                      type="date"
+                      value={tempStartDate}
+                      onChange={(e) => setTempStartDate(e.target.value)}
+                      className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-700 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-medium text-zinc-700 mb-1">End Date</label>
+                    <input
+                      type="date"
+                      value={tempEndDate}
+                      onChange={(e) => setTempEndDate(e.target.value)}
+                      className="w-full rounded-lg border border-zinc-200 bg-zinc-50 px-3 py-2 text-sm text-zinc-700 outline-none focus:border-green-500 focus:ring-2 focus:ring-green-500/20"
+                    />
+                  </div>
+                  <div className="flex gap-2 pt-2">
+                    <button
+                      onClick={handleDateApply}
+                      className="flex-1 rounded-lg bg-green-600 px-3 py-2 text-sm font-semibold text-white hover:bg-green-700"
+                    >
+                      Apply
+                    </button>
+                    <button
+                      onClick={handleDateCancel}
+                      className="flex-1 rounded-lg border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+
           {/* All Meters Button */}
-          <button className="flex items-center gap-2 px-4 py-2 border border-zinc-300 rounded-lg hover:bg-zinc-50 transition-colors">
-            <Filter className="w-4 h-4 text-zinc-600" />
-            <span className="text-sm text-zinc-700">All Meters</span>
-            <span className="text-xs text-zinc-500 bg-zinc-100 px-2 py-1 rounded">{selectedMeter}</span>
-          </button>
+          <div className="relative" ref={meterRef}>
+            <button
+              onClick={() => setShowMeterDropdown(!showMeterDropdown)}
+              className="flex items-center gap-2 px-4 py-2 border border-zinc-300 rounded-lg hover:bg-zinc-50 transition-colors"
+            >
+              <Filter className="w-4 h-4 text-zinc-600" />
+              <span className="text-sm text-zinc-700">All Meters</span>
+              <span className="text-xs text-zinc-500 bg-zinc-100 px-2 py-1 rounded">{selectedMeter}</span>
+            </button>
+
+            {showMeterDropdown && (
+              <div className="absolute top-full left-0 mt-2 z-50 w-64 overflow-hidden rounded-xl border border-zinc-200 bg-white shadow-2xl ring-1 ring-black/5">
+                <div className="max-h-64 overflow-y-auto">
+                  {meters.map((meter) => (
+                    <button
+                      key={meter}
+                      onClick={() => {
+                        setSelectedMeter(meter);
+                        setShowMeterDropdown(false);
+                      }}
+                      className={`w-full px-4 py-2 text-left text-sm hover:bg-zinc-50 ${
+                        selectedMeter === meter ? 'bg-green-50 text-green-700 font-medium' : 'text-zinc-700'
+                      }`}
+                    >
+                      {meter}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
         </div>
 
         {/* Report Cards Grid */}

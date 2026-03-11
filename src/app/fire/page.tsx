@@ -66,7 +66,7 @@ export default function FireSmokeDetectionPage() {
     <AppShell>
       <div className="flex flex-col gap-6">
         {/* Metrics Cards */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-6">
           <MetricCard
             title="All Clear"
             value="Status"
@@ -123,10 +123,6 @@ export default function FireSmokeDetectionPage() {
             iconBg="bg-green-100"
             iconColor="text-green-600"
           />
-        </div>
-
-        {/* Detection Time Metric */}
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-5">
           <MetricCard
             title="Detection Time"
             value="<1s"

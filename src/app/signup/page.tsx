@@ -120,7 +120,7 @@ function SignupPageInner() {
           <button
             type="submit"
             disabled={loading}
-            className="h-10 rounded-md bg-zinc-900 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-60"
+            className="h-10 rounded-md bg-zinc-900 text-sm font-medium text-black hover:bg-zinc-800 disabled:opacity-60 dark:bg-white dark:text-zinc-900 dark:hover:bg-zinc-100"
           >
             {loading ? "Creating..." : "Create account"}
           </button>
@@ -144,7 +144,7 @@ function SignupPageInner() {
           </div>
 
           <div className="text-xs text-zinc-500">
-            API: {process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001"}
+          {/* API: {process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:3001"} */}
           </div>
         </form>
       </div>

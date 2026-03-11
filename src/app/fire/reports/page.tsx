@@ -47,8 +47,8 @@ export default function FireReportsPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-zinc-900">Fire/Smoke Reports</h1>
-            <p className="text-zinc-600">Incident history and system logs</p>
+            {/* <h1 className="text-2xl font-bold text-zinc-900">Fire/Smoke Reports</h1>
+            <p className="text-zinc-600">Incident history and system logs</p> */}
           </div>
           <button className="rounded-lg bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 transition-colors flex items-center gap-2">
             Export

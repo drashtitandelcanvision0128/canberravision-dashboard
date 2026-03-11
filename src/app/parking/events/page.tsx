@@ -210,8 +210,8 @@ export default function ParkingEventsPage() {
         {/* Header */}
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-bold text-zinc-900">Events & Alerts</h1>
-            <p className="text-zinc-600 mt-1">Real-time parking events and system alerts</p>
+            {/* <h1 className="text-2xl font-bold text-zinc-900">Events & Alerts</h1>
+            <p className="text-zinc-600 mt-1">Real-time parking events and system alerts</p> */}
           </div>
           
           <button
@@ -219,7 +219,7 @@ export default function ParkingEventsPage() {
             className="flex items-center gap-2 px-4 py-2 bg-white border border-zinc-200 rounded-lg hover:bg-zinc-50"
           >
             <Filter className="w-4 h-4" />
-            Filter
+            <span className="text-zinc-700">Filter</span>
             <ChevronDown className={`w-4 h-4 transition-transform ${showFilters ? 'rotate-180' : ''}`} />
           </button>
         </div>
